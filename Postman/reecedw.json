@@ -1,0 +1,97 @@
+{
+  "info": {
+    "_postman_id": "2c97a555-b1e4-41b4-96bc-ebbe2d61bd13",
+    "name": "cs314-collection-template",
+    "description": "This is a template collection for CS314.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Config",
+      "item": [],
+      "id": "94ab42e0-2c31-46dd-9f4f-2a5b2bc57a3c"
+    },
+    {
+      "name": "New Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "7ffdadca-d2ee-457b-94bf-b480b4c62f94",
+            "exec": [
+              "pm.test(\"Response is HTTP200 status\", () => {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Server-side team name is correct\", () => {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.serverName).to.eql(\"t26 VNER\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Config and distances server-side features are listed\", () => {\r",
+              "    const response = pm.response.json();\r",
+              "    pm.expect(response.features[0]).to.eql(\"config\");\r",
+              "    pm.expect(response.features[1]).to.eql(\"distances\");\r",
+              "    pm.expect(response.features[2]).to.eql(\"find\");\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "id": "3412910d-f7ae-4675-9dc6-66870b14b63f",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"requestType\": \"config\",\r\n    \"features\": [\"config\"] \r\n}"
+        },
+        "url": "{{BASE_URL}}/api/config"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "d62b2c0d-bcd2-4b85-b995-157081782670"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "89ab5ae9-a0b7-4dfb-bfb7-e1ca0f74871b"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "2ae0ee10-a452-4abc-84e2-fc68531a0c6f",
+      "key": "CURRENT_VERSION",
+      "value": "1"
+    },
+    {
+      "id": "78b94239-97b6-4885-8aff-381e98a0f11b",
+      "key": "BASE_URL",
+      "value": "http://localhost:8000"
+    },
+    {
+      "id": "3e18d84c-ed0e-4e7c-af28-c0dbca1d3598",
+      "key": "TEAM_NAME",
+      "value": "txx team name"
+    }
+  ]
+}

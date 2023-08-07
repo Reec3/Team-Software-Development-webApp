@@ -1,0 +1,51 @@
+{
+  "info": {
+    "_postman_id": "17e8f031-e005-4854-957b-60fceda506ea",
+    "name": "cs314-collection-template",
+    "description": "This is a template collection for CS314.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "d0caae80-db59-4c66-aa4d-32f4ac7f1d3f"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ],
+        "id": "a5443ac2-6015-4fbc-ae7b-20d96b8d45fe"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "aa98fca9-aff6-4bc8-8a99-e4349819a687",
+      "key": "CURRENT_VERSION",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "id": "5ea26e2f-543c-483d-99cd-0a5cd8279d0a",
+      "key": "BASE_URL",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "id": "310e7df4-77a6-4c0f-9fea-f005aaba1058",
+      "key": "TEAM_NAME",
+      "value": "txx team name",
+      "type": "string"
+    }
+  ]
+}

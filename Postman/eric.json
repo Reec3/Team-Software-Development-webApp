@@ -1,0 +1,640 @@
+{
+  "info": {
+    "_postman_id": "5584e977-d393-4618-91ec-c29db6d68db8",
+    "name": "cs314-collection-template",
+    "description": "This is a template collection for CS314.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "config",
+      "item": [
+        {
+          "name": "Config Post",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "cfbef4a9-03ca-4631-843e-7397d4e12333",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server-side team name is correct\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    pm.expect(response.serverName).to.eql(\"t26 VNER\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Config and distances server-side features are listed\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    pm.expect(response.features[0]).to.eql(\"config\");\r",
+                  "    pm.expect(response.features[1]).to.eql(\"distances\");\r",
+                  "    pm.expect(response.features[2]).to.eql(\"find\");\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "48187d86-65bc-4876-b366-ac5b6218f6bc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestType\": \"config\",\r\n    \"features\": [\"config\"] \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/config"
+          },
+          "response": []
+        }
+      ],
+      "id": "d1e92992-a7ac-4c5d-a95e-8a1368c99ac8"
+    },
+    {
+      "name": "distances",
+      "item": [
+        {
+          "name": "Distances Post 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a5fdf655-431e-48fb-aa23-3e651c5b56ff",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"distances\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same earth radius\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedRadius = data.earthRadius;\r",
+                  "    pm.expect(response.earthRadius).to.eql(expectedRadius);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same list of places\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedPlaces = data.places;\r",
+                  "    pm.expect(response.places).to.eql(expectedPlaces);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns correct distances\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedDistances = [5239,5239,0];\r",
+                  "    pm.expect(response.distances).to.eql(expectedDistances);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "8e471d6f-ea76-4423-b656-a642336998cc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"requestType\": \"distances\",\r\n  \"places\": [\r\n    {\r\n      \"name\": \"Mount Everest\",\r\n      \"latitude\": \"27.9881\",\r\n      \"longitude\": \"86.9250\"\r\n    },\r\n    {\r\n      \"name\": \"Mount Kilimanjaro\",\r\n      \"latitude\": \"-3.0674\",\r\n      \"longitude\": \"37.3556\"\r\n    },\r\n    {\r\n      \"name\": \"Mount Everest\",\r\n      \"latitude\": \"27.9881\",\r\n      \"longitude\": \"86.9250\"\r\n    }\r\n  ],\r\n  \"earthRadius\": 5280.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/distances"
+          },
+          "response": []
+        },
+        {
+          "name": "Distances Post 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "49f7ee08-a84d-43f7-82fb-36c8b4f62a61",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"distances\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same earth radius\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedRadius = data.earthRadius;\r",
+                  "    pm.expect(response.earthRadius).to.eql(expectedRadius);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same list of places\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedPlaces = data.places;\r",
+                  "    pm.expect(response.places).to.eql(expectedPlaces);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns correct distances\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedDistances = [\r",
+                  "        32835172,\r",
+                  "        32835172,\r",
+                  "        32835172,\r",
+                  "        32835172,\r",
+                  "        32835172,\r",
+                  "        32835172,\r",
+                  "        32835172,\r",
+                  "        49252759,\r",
+                  "        65670345,\r",
+                  "        65670345,\r",
+                  "        65670345,\r",
+                  "        32835172\r",
+                  "    ];\r",
+                  "    pm.expect(response.distances).to.eql(expectedDistances);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "a11bcc6a-72a1-47a6-a2c3-98b6b7fc285d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"places\": [\r\n        {\r\n            \"latitude\": \"0\",\r\n            \"longitude\": \"0\"\r\n        },\r\n        {\r\n            \"latitude\": \"90\",\r\n            \"longitude\": \"180\"\r\n        },\r\n        {\r\n            \"latitude\": \"-0\",\r\n            \"longitude\": \"-0\"\r\n        },\r\n        {\r\n            \"latitude\": \"-90\",\r\n            \"longitude\": \"-180\"\r\n        },\r\n        {\r\n            \"latitude\": \"0.0\",\r\n            \"longitude\": \"0.0\"\r\n        },\r\n        {\r\n            \"latitude\": \"90.0\",\r\n            \"longitude\": \"180.0\"\r\n        },\r\n        {\r\n            \"latitude\": \"-0.0\",\r\n            \"longitude\": \"-0.0\"\r\n        },\r\n        {\r\n            \"latitude\": \"-90.0\",\r\n            \"longitude\": \"-180.0\"\r\n        },\r\n        {\r\n            \"latitude\": \"45\",\r\n            \"longitude\": \"90\"\r\n        },\r\n        {\r\n            \"latitude\": \"-45\",\r\n            \"longitude\": \"-90\"\r\n        },\r\n        {\r\n            \"latitude\": \"45.0\",\r\n            \"longitude\": \"90.0\"\r\n        },\r\n        {\r\n            \"latitude\": \"-45.0\",\r\n            \"longitude\": \"-90.0\"\r\n        }\r\n    ],\r\n    \"earthRadius\": 2.090352E7,\r\n    \"requestType\": \"distances\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/distances"
+          },
+          "response": []
+        },
+        {
+          "name": "Distances Post 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "140d236c-f3b6-4491-9e43-7b6f56df84b9",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"distances\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same earth radius\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedRadius = data.earthRadius;\r",
+                  "    pm.expect(response.earthRadius).to.eql(expectedRadius);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same list of places\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedPlaces = data.places;\r",
+                  "    pm.expect(response.places).to.eql(expectedPlaces);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns correct distances\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedDistances = [18797,25692,2980,8254];\r",
+                  "    pm.expect(response.distances).to.eql(expectedDistances);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "b23d4fb0-1bcd-4b17-87d8-2066f01feb0d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [\r\n      {\r\n        \"name\" : \"Toronto, Canada\",\r\n        \"latitude\": \"43.622778\",\r\n        \"longitude\": \"-79.504722\"\r\n      },\r\n      {\r\n        \"name\" : \"Lautoka, Fiji\",\r\n        \"latitude\": \"-17.615\",\r\n        \"longitude\": \"-177.4414\"\r\n      },\r\n      {\r\n        \"name\" : \"Budapest, Hungary\",\r\n        \"latitude\": \"47.485751\",\r\n        \"longitude\": \"19.062096\"\r\n      },\r\n      {\r\n        \"name\" : \"Dublin, Ireland\",\r\n        \"latitude\": \"53.341944\",\r\n        \"longitude\": \"-6.286944\"\r\n      }\r\n    ],\r\n    \"earthRadius\": 10000\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/distances"
+          },
+          "response": []
+        }
+      ],
+      "id": "736c53ae-1550-4225-8d5e-4d5f373ab206"
+    },
+    {
+      "name": "tour",
+      "item": [
+        {
+          "name": "Tour Post 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "19344e9f-2e30-4b79-8562-75c02bf2344b",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"tour\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same earth radius\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedRadius = data.earthRadius;\r",
+                  "    pm.expect(response.earthRadius).to.eql(expectedRadius);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "cdbd4898-321b-4f47-a055-7f13ad24803a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"places\":[\r\n    {\r\n      \"name\": \"The Oval\",\r\n      \"latitude\": \"40.58\",\r\n      \"longitude\": \"-105.08\"\r\n    },\r\n    {\r\n      \"name\": \"Lake Superior\",\r\n      \"latitude\": \"47.79\",\r\n      \"longitude\": \"-87.86\"\r\n    },\r\n    {\r\n      \"name\": \"Denver International Airport\",\r\n      \"latitude\": \"39.87\",\r\n      \"longitude\": \"-104.67\"\r\n    },\r\n    {\r\n      \"name\": \"Chicago\",\r\n      \"latitude\": \"41.84\",\r\n      \"longitude\": \"-87.67\"\r\n    },\r\n    {\r\n      \"name\": \"Salt Lake City\",\r\n      \"latitude\": \"40.75\",\r\n      \"longitude\": \"-111.89\"\r\n    },\r\n    {\r\n      \"name\": \"Miami\",\r\n      \"latitude\": \"25.78\",\r\n      \"longitude\": \"-80.20\"\r\n    },\r\n    {\r\n      \"name\": \"Stockholm\",\r\n      \"latitude\": \"59.32\",\r\n      \"longitude\": \"18.07\"\r\n    },\r\n    {\r\n      \"name\": \"Melbourne\",\r\n      \"latitude\": \"-37.80\",\r\n      \"longitude\": \"144.98\"\r\n    },\r\n    {\r\n      \"name\": \"London\",\r\n      \"latitude\": \"51.46\",\r\n      \"longitude\": \"-0.13\"\r\n    },\r\n    {\r\n      \"name\": \"Auckland\",\r\n      \"latitude\": \"-36.98\",\r\n      \"longitude\": \"174.80\"\r\n    },\r\n    {\r\n      \"name\": \"Rio de Janeiro\",\r\n      \"latitude\": \"-22.89\",\r\n      \"longitude\": \"-43.23\"\r\n    }\r\n],\r\n  \r\n  \"response\": 2,\r\n  \"earthRadius\":11111,\r\n  \"requestType\":\"tour\"  \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/tour"
+          },
+          "response": []
+        },
+        {
+          "name": "Tour Post 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "d3b5692c-1120-4053-934e-5550ba820726",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"tour\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same earth radius\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedRadius = data.earthRadius;\r",
+                  "    pm.expect(response.earthRadius).to.eql(expectedRadius);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "6dd8a610-2231-4955-931a-1d7336533904",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\t\"places\": [\r\n    {\r\n\t\t\t\"name\": \"Cimarron County\",\r\n\t\t\t\"latitude\": \"36.50\",\r\n\t\t\t\"longitude\": \"-102.92\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"6181 Maverick Road\",\r\n\t\t\t\"latitude\": \"25.88\",\r\n\t\t\t\"longitude\": \"-97.43\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"TX 15\",\r\n\t\t\t\"latitude\": \"36.43\",\r\n\t\t\t\"longitude\": \"-100.19\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"Cameron Parish\",\r\n\t\t\t\"latitude\": \"29.69\",\r\n\t\t\t\"longitude\": \"-93.82\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"Little River 21\",\r\n\t\t\t\"latitude\": \"33.62\",\r\n\t\t\t\"longitude\": \"-94.22\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"Matagorda County\",\r\n\t\t\t\"latitude\": \"28.50\",\r\n\t\t\t\"longitude\": \"-96.24\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"Maverick County\",\r\n\t\t\t\"latitude\": \"28.70\",\r\n\t\t\t\"longitude\": \"-100.37\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"FM 1232\",\r\n\t\t\t\"latitude\": \"31.77\",\r\n\t\t\t\"longitude\": \"-103.09\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"Municipio de Acuña\",\r\n\t\t\t\"latitude\": \"29.73\",\r\n\t\t\t\"longitude\": \"-102.26\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"El Paso County\",\r\n\t\t\t\"latitude\": \"31.89\",\r\n\t\t\t\"longitude\": \"-106.35\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"Brewster County\",\r\n\t\t\t\"latitude\": \"29.12\",\r\n\t\t\t\"longitude\": \"-103.40\"\r\n\t\t},\r\n        {\r\n\t\t\t\"name\": \"Cooke County\",\r\n\t\t\t\"latitude\": \"33.77\",\r\n\t\t\t\"longitude\": \"-97.03\"\r\n\t\t},\r\n        {\r\n\t\t\t\"name\": \"El Faro\",\r\n\t\t\t\"latitude\": \"31.15\",\r\n\t\t\t\"longitude\": \"-105.77\"\r\n\t\t},\r\n        {\r\n\t\t\t\"name\": \"Childress County\",\r\n\t\t\t\"latitude\": \"34.55\",\r\n\t\t\t\"longitude\": \"-100.02\"\r\n\t\t},\r\n        {\r\n\t\t\t\"name\": \"Bledsoe\",\r\n\t\t\t\"latitude\": \"33.58\",\r\n\t\t\t\"longitude\": \"-103.01\"\r\n\t\t},\r\n        {\r\n\t\t\t\"name\": \"Oldham County\",\r\n\t\t\t\"latitude\": \"35.25\",\r\n\t\t\t\"longitude\": \"-103.03\"\r\n\t\t} \r\n\t],\r\n\t\"response\": 1,\r\n\t\"earthRadius\": 3959,\r\n\t\"requestType\": \"tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/tour"
+          },
+          "response": []
+        },
+        {
+          "name": "Tour Post 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "12e1e6d6-2b05-4029-a4f8-b3d44bfc9d8c",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"tour\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same earth radius\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedRadius = data.earthRadius;\r",
+                  "    pm.expect(response.earthRadius).to.eql(expectedRadius);\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "44efdd1b-74ba-4898-b9a3-dc045106f740",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"places\": [\r\n    {\r\n      \"latitude\": \"40.9604082707322\",\r\n      \"longitude\": \"-106.62098955768867\"\r\n    },\r\n    {\r\n      \"latitude\": \"40.771116724010824\",\r\n      \"longitude\": \"-101.92392987121552\"\r\n    },\r\n    {\r\n      \"latitude\": \"38.50227271230479\",\r\n      \"longitude\": \"-100.68380503116161\"\r\n    },\r\n    {\r\n      \"latitude\": \"37.473012629949835\",\r\n      \"longitude\": \"-105.58627174383456\"\r\n    },\r\n    {\r\n      \"latitude\": \"39.47671444293666\",\r\n      \"longitude\": \"-103.79330097835462\"\r\n    },\r\n    {\r\n      \"latitude\": \"40.085069460793335\",\r\n      \"longitude\": \"-108.62210566529018\"\r\n    },\r\n    {\r\n      \"latitude\": \"38.707416564475885\",\r\n      \"longitude\": \"-109.4952760625894\"\r\n    },\r\n    {\r\n      \"latitude\": \"39.27202702748803\",\r\n      \"longitude\": \"-102.77063054601354\"\r\n    },\r\n    {\r\n      \"latitude\": \"37.96635619351426\",\r\n      \"longitude\": \"-107.17173361726542\"\r\n    },\r\n    {\r\n      \"latitude\": \"41.89342316741528\",\r\n      \"longitude\": \"-105.29487262669463\"\r\n    },\r\n    {\r\n      \"latitude\": \"35.61052062784777\",\r\n      \"longitude\": \"-100.15279473441139\"\r\n    },\r\n    {\r\n      \"latitude\": \"40.04202333372206\",\r\n      \"longitude\": \"-100.64952758073385\"\r\n    }\r\n  ],\r\n  \"response\": 1,\r\n  \"earthRadius\": 3959.0,\r\n  \"requestType\": \"tour\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/tour"
+          },
+          "response": []
+        }
+      ],
+      "id": "fb77da36-7e72-44fc-adcb-95e415932138"
+    },
+    {
+      "name": "find",
+      "item": [
+        {
+          "name": "Find Request 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "f958e02f-3c3b-4b55-985e-66791ce3920a",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"find\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns found\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedFound = 4;\r",
+                  "    pm.expect(response.found).to.eql(expectedFound);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns places\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedPlaces = data.places;\r",
+                  "    pm.expect(response.places).to.eql([{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Connersville\",\"latitude\":\"39.57170104980469\",\"name\":\"Nulltown Wingnuts Ultralightport\",\"index\":\"1\",\"region\":\"Indiana\",\"longitude\":\"-85.15859985351562\"},{\"continent\":\"Oceania\",\"country\":\"Australia\",\"world\":\"Cronulla\",\"latitude\":\"-34.040487\",\"name\":\"Wanda Beach Helipad\",\"index\":\"2\",\"region\":\"New South Wales\",\"longitude\":\"151.1635\"},{\"continent\":\"Oceania\",\"country\":\"Australia\",\"latitude\":\"-31.441699981689453\",\"name\":\"Nullabor Motel Airport\",\"index\":\"3\",\"region\":\"South Australia\",\"longitude\":\"130.90199279785156\"},{\"continent\":\"Oceania\",\"country\":\"Australia\",\"latitude\":\"-21.913299560546875\",\"name\":\"Nullagine Airport\",\"index\":\"4\",\"region\":\"Western Australia\",\"longitude\":\"120.197998046875\"}]);\r",
+                  "    });\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "e73244cf-b707-48d6-a80a-e32679ca031f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"NULL\",\r\n    \"limit\": 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/find"
+          },
+          "response": []
+        },
+        {
+          "name": "Find Request 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "633003ae-ba35-4941-9897-aa18d9b964a0",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"find\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns found\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedFound = 176;\r",
+                  "    pm.expect(response.found).to.eql(expectedFound);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns places\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedPlaces = data.places;\r",
+                  "    pm.expect(response.places).to.eql([{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Huntington Beach\",\"latitude\":\"33.58250045776367\",\"name\":\"Swepi Beta Platform Ellen Heliport\",\"index\":\"1\",\"region\":\"California\",\"longitude\":\"-118.12899780273438\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"West Palm Beach\",\"latitude\":\"26.683700561523438\",\"name\":\"Ranger Heliport\",\"index\":\"2\",\"region\":\"Florida\",\"longitude\":\"-80.18730163574219\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Carolina Beach\",\"latitude\":\"34.10430145263672\",\"name\":\"Pilots Ridge Airport\",\"index\":\"3\",\"region\":\"North Carolina\",\"longitude\":\"-77.9041976928711\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"North Miami Beach\",\"latitude\":\"25.960899353027344\",\"name\":\"Aventura Heliport\",\"index\":\"4\",\"region\":\"Florida\",\"longitude\":\"-80.13919830322266\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Seal Beach\",\"latitude\":\"33.7569999695\",\"name\":\"Boeing Seal Beach (Rooftop) Heliport\",\"index\":\"5\",\"region\":\"California\",\"longitude\":\"-118.087997437\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Ormond Beach\",\"latitude\":\"29.267499923706055\",\"name\":\"Big \\u0027G\\u0027 Airport\",\"index\":\"6\",\"region\":\"Florida\",\"longitude\":\"-81.2301025390625\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Panama City Beach\",\"latitude\":\"30.214099884\",\"name\":\"Panhandle Helicopter Llc Heliport\",\"index\":\"7\",\"region\":\"Florida\",\"longitude\":\"-85.8722000122\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Spicewood\",\"latitude\":\"30.500999450683594\",\"name\":\"Lakeside Beach Airport\",\"index\":\"8\",\"region\":\"Texas\",\"longitude\":\"-98.14700317382812\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Newport Beach\",\"latitude\":\"33.625182\",\"name\":\"Hoag Memorial Hospital Heliport\",\"index\":\"9\",\"region\":\"California\",\"longitude\":\"-117.930799\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Ruskin\",\"latitude\":\"27.729799270629883\",\"name\":\"Bahia Beach Heliport\",\"index\":\"10\",\"region\":\"Florida\",\"longitude\":\"-82.47540283203125\"}]);\r",
+                  "    });\r",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "f19451c5-8947-4a84-9e99-88b170e4f0dd",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"match\": \"beach\",\r\n    \"limit\": 10,\r\n    \"requestType\": \"find\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/find"
+          },
+          "response": []
+        },
+        {
+          "name": "Find Request 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "1d9f6590-ac02-4079-89b0-10c5bfc2c2c2",
+                "exec": [
+                  "pm.test(\"Response is HTTP200 status\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns same request type\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const expectedType = \"find\";\r",
+                  "    pm.expect(response.requestType).to.eql(expectedType);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns found\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedFound = 50415;\r",
+                  "    pm.expect(response.found).to.eql(expectedFound);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Server returns places\", () => {\r",
+                  "    const response = pm.response.json();\r",
+                  "    const data = JSON.parse(request.data);\r",
+                  "    const expectedPlaces = data.places;\r",
+                  "    pm.expect(response.places).to.eql([{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Bensalem\",\"latitude\":\"40.07080078125\",\"name\":\"Total Rf Heliport\",\"index\":\"1\",\"region\":\"Pennsylvania\",\"longitude\":\"-74.93360137939453\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Anchor Point\",\"latitude\":\"59.94919968\",\"name\":\"Lowell Field\",\"index\":\"2\",\"region\":\"Alaska\",\"longitude\":\"-151.695999146\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Harvest\",\"latitude\":\"34.86479949951172\",\"name\":\"Epps Airpark\",\"index\":\"3\",\"region\":\"Alabama\",\"longitude\":\"-86.77030181884766\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Newport\",\"latitude\":\"35.608699798583984\",\"name\":\"Newport Hospital \\u0026 Clinic Heliport\",\"index\":\"4\",\"region\":\"Arkansas\",\"longitude\":\"-91.25489807128906\"},{\"continent\":\"North America\",\"country\":\"United States\",\"world\":\"Cordes\",\"latitude\":\"34.305599212646484\",\"name\":\"Cordes Airport\",\"index\":\"5\",\"region\":\"Arizona\",\"longitude\":\"-112.16500091552734\"}]);\r",
+                  "    });"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "id": "9408c137-991b-4e0c-8c38-de477f920ca6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"match\": \"a\",\r\n    \"limit\": 5,\r\n    \"requestType\": \"find\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{BASE_URL}}/api/find"
+          },
+          "response": []
+        }
+      ],
+      "id": "8573eb2c-fc78-4bd8-b84e-74d9c6c982ba"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "080d2636-056c-4365-8661-775a460a5c06",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "88237ec7-99e4-4efb-9bbb-2234b84593b0",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "f568ec67-9eea-4731-b99d-be74e061e21f",
+      "key": "CURRENT_VERSION",
+      "value": "1"
+    },
+    {
+      "id": "f7a09a23-da5f-4d6b-89e2-133fe2066161",
+      "key": "BASE_URL",
+      "value": "https://localhost:31426"
+    },
+    {
+      "id": "fc64b6eb-db4c-40f2-bb31-8ae0403c3c6b",
+      "key": "TEAM_NAME",
+      "value": "t26 VNER"
+    }
+  ]
+}
