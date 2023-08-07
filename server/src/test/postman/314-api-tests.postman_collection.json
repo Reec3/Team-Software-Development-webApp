@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "8dff5598-020e-4bf7-ba4a-d3efc7e70e5a",
+		"name": "314-api-tests",
+		"description": "This collection contains tests for the various API requests in the CS314 webapp.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "Config Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server-side team name is correct\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedTeamName = pm.collectionVariables.get(\"t26 VNER\");",
+									"    pm.expect(response.serverName).to.eql(expectedTeamName);",
+									"});",
+									"",
+									"pm.test(\"Config and distances server-side features are listed\", () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.features[0]).to.eql(\"config\");",
+									"    pm.expect(response.features[1]).to.eql(\"distances\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestType\": \"config\",\n    \"features\": [\"config\"] \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/config",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						},
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "distances",
+			"item": [
+				{
+					"name": "Distances Post 1 (victor45.json)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server returns same request type\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedType = \"distances\";",
+									"    pm.expect(response.requestType).to.eql(expectedType);",
+									"});",
+									"",
+									"pm.test(\"Server returns same earth radius\", () => {",
+									"    const response = pm.response.json();",
+									"    const data = JSON.parse(request.data);",
+									"    const expectedRadius = data.earthRadius;",
+									"    pm.expect(response.earthRadius).to.eql(expectedRadius);",
+									"});",
+									"",
+									"pm.test(\"Server returns same list of places\", () => {",
+									"    const response = pm.response.json();",
+									"    const data = JSON.parse(request.data);",
+									"    const expectedPlaces = data.places;",
+									"    pm.expect(response.places).to.eql(expectedPlaces);",
+									"});",
+									"",
+									"pm.test(\"Server returns correct distances\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedDistances = [5239,5239,0];",
+									"    pm.expect(response.distances).to.eql(expectedDistances);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"requestType\": \"distances\",\n  \"places\": [\n    {\n      \"name\": \"Mount Everest\",\n      \"latitude\": \"27.9881\",\n      \"longitude\": \"86.9250\"\n    },\n    {\n      \"name\": \"Mount Kilimanjaro\",\n      \"latitude\": \"-3.0674\",\n      \"longitude\": \"37.3556\"\n    },\n    {\n      \"name\": \"Mount Everest\",\n      \"latitude\": \"27.9881\",\n      \"longitude\": \"86.9250\"\n    }\n  ],\n  \"earthRadius\": 5280.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/distances",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"distances"
+							]
+						},
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				},
+				{
+					"name": "Distances Post 2 (zypher.json)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server returns same request type\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedType = \"distances\";",
+									"    pm.expect(response.requestType).to.eql(expectedType);",
+									"});",
+									"",
+									"pm.test(\"Server returns same earth radius\", () => {",
+									"    const response = pm.response.json();",
+									"    const data = JSON.parse(request.data);",
+									"    const expectedRadius = data.earthRadius;",
+									"    pm.expect(response.earthRadius).to.eql(expectedRadius);",
+									"});",
+									"",
+									"pm.test(\"Server returns same list of places\", () => {",
+									"    const response = pm.response.json();",
+									"    const data = JSON.parse(request.data);",
+									"    const expectedPlaces = data.places;",
+									"    pm.expect(response.places).to.eql(expectedPlaces);",
+									"});",
+									"",
+									"pm.test(\"Server returns correct distances\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedDistances = [3, 41, 255, 1711, 10142, 12677, 11190, 0, 1, 7382];",
+									"    pm.expect(response.distances).to.eql(expectedDistances);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"requestType\"    : \"distances\",\n  \"places\"         : [{\"name\":\"Alaska Zoo\", \"latitude\":  \"61.14\",  \"longitude\": \"-149.79\"},\n                      {\"name\": \"Huffman Park\", \"latitude\":  \"61.11\", \"longitude\": \"-149.80\"},\n                      {\"name\": \"Alyeska Resort\", \"latitude\":  \"60.97\", \"longitude\": \"-149.10\"},\n                      {\"name\": \"Denali\", \"latitude\":  \"63.08\", \"longitude\": \"-151.00\"},\n                      {\"name\": \"Khatyrka\", \"latitude\":  \"62.06\", \"longitude\": \"175.28\"},\n                      {\"name\": \"Brisbane\", \"latitude\":  \"-27.37\", \"longitude\": \"153.03\"},\n                      {\"name\": \"Antofagasta\", \"latitude\":  \"-23.58\", \"longitude\": \"-70.43\"},\n                      {\"name\": \"Cologne Cathedral\", \"latitude\":  \"50.95\", \"longitude\": \"6.96\"},\n                      {\"name\": \"Cologne Cathedral\", \"latitude\":  \"50.95\", \"longitude\": \"6.96\"},\n                      {\"name\": \"Dom Treasury\", \"latitude\":  \"50.94\", \"longitude\": \"6.96\"}\n                      ],\n  \"earthRadius\"    : 6371.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/distances",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"distances"
+							]
+						},
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				},
+				{
+					"name": "Distances Post 3 (bdavis43.json)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server returns same request type\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedType = \"distances\";",
+									"    pm.expect(response.requestType).to.eql(expectedType);",
+									"});",
+									"",
+									"pm.test(\"Server returns same earth radius\", () => {",
+									"    const response = pm.response.json();",
+									"    const data = JSON.parse(request.data);",
+									"    const expectedRadius = data.earthRadius;",
+									"    pm.expect(response.earthRadius).to.eql(expectedRadius);",
+									"});",
+									"",
+									"pm.test(\"Server returns same list of places\", () => {",
+									"    const response = pm.response.json();",
+									"    const data = JSON.parse(request.data);",
+									"    const expectedPlaces = data.places;",
+									"    pm.expect(response.places).to.eql(expectedPlaces);",
+									"});",
+									"",
+									"pm.test(\"Server returns correct distances\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedDistances = [70,61,766,1516,9797,8607,4709,1118];",
+									"    pm.expect(response.distances).to.eql(expectedDistances);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestType\": \"distances\",\n    \"places\": [\n      {\n        \"name\" : \"Centennial, CO, USA\",\n        \"latitude\": \"39.580556\",\n        \"longitude\": \"-104.876944\"\n      },\n      {\n        \"name\" : \"Fort Collins, CO, USA\",\n        \"latitude\": \"40.585000\",\n        \"longitude\": \"-105.084167\"\n      },\n      {\n        \"name\" : \"Aurora, CO, USA\",\n        \"latitude\": \"39.729444\",\n        \"longitude\": \"-104.831667\"\n      },\n      {\n        \"name\" : \"Austin, TX, USA\",\n        \"latitude\": \"30.266944\",\n        \"longitude\": \"-97.743056\"\n      },\n      {\n        \"name\" : \"Rome, NY, USA\",\n        \"latitude\": \"43.212778\",\n        \"longitude\": \"-75.455556\"\n      },\n      {\n        \"name\" : \"Darwin, NT, AUS\",\n        \"latitude\": \"-12.463611\",\n        \"longitude\": \"130.844167\"\n      },\n      {\n        \"name\" : \"London, UK\",\n        \"latitude\": \"51.507222\",\n        \"longitude\": \"-0.1275\"\n      },\n      {\n        \"name\" : \"Vancouver, BC, CAN\",\n        \"latitude\": \"49.282778\",\n        \"longitude\": \"-123.121389\"\n      }\n    ],\n    \"earthRadius\": 3959.0\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/api/distances",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"api",
+								"distances"
+							]
+						},
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "CURRENT_VERSION",
+			"value": "1"
+		}
+	]
+}
